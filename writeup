@@ -1,0 +1,16 @@
+## Hardening before production
+Before deploying this system into production, I would first improve security and monitoring. I would restrict SSH access to only IP addresses instead of allowing public access. I would use IAM roles instead of storing credentials directly on the server.
+
+For reliability, I would add monitoring and alerting using CloudWatch and Prometheus. I would also configure automatic service restart, centralized logging, and regular backups. Since I have mainly worked with Docker, Linux, Terraform, Jenkins, and AWS, I would focus on building stable CI/CD pipelines and infrastructure automation to make deployments safer and easier to manage.
+
+I would also improve scalability by adding load balancing and autoscaling for the API layer. Container images would be stored in a private registry, and health checks would be added for worker services to reduce downtime.
+
+
+
+## If the model were 100x larger
+
+If the model became 100x larger, the current CPU-based setup would not handle inference efficiently. I would move inference workloads to GPU-based instances and separate the inference layer into scalable services.
+
+Instead of running everything on a few EC2 instances, I would use Kubernetes to manage containers and scale workers automatically. I would also use distributed inference techniques and queue-based communication to handle larger traffic and prevent worker overload.
+
+To improve performance, I would store model files in object storage such as Amazon S3 and use caching for repeated requests. Monitoring resource usage and autoscaling workers based on traffic would become much more important for maintaining stability and response time.
