@@ -1,0 +1,33 @@
+services:
+  iii:
+    build:
+      context: .
+    ports:
+      - "49134:49134"
+      - "3111:3111"
+      - "3112:3112"
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - ./data:/app/data
+    environment:
+      - RUST_LOG=info
+      - III_EXECUTION_CONTEXT=docker
+    restart: unless-stopped
+
+  math-worker:
+    build:
+      context: ./workers/math-worker
+    environment:
+      - III_URL=ws://iii:49134
+    depends_on:
+      - iii
+    restart: unless-stopped
+
+  caller-worker:
+    build:
+      context: ./workers/caller-worker
+    environment:
+      - III_URL=ws://iii:49134
+    depends_on:
+      - iii
+    restart: unless-stopped
